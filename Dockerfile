@@ -1,9 +1,10 @@
 FROM centos:7
 MAINTAINER "Mitsuru Nakakawaji" <mitsuru@procube.jp>
 RUN yum -y update \
-    && yum -y install unzip wget sudo lsof telnet bind-utils tar tcpdump vim sysstat strace
+    && yum -y install unzip wget sudo lsof telnet bind-utils tar tcpdump vim sysstat strace less
 ENV HOME /root
 WORKDIR ${HOME}
+RUN echo "export TERM=xterm" >> .bash_profile
 RUN yum install -y epel-release httpd
 RUN yum install -y mosquitto certbot
 RUN wget -qO - https://github.com/chip-in/shibboleth-fcgi-rpm/releases/download/2.6.0-2.2-1/shibboleth-fcgi-rpm.tar.gz | tar -xzf -
@@ -13,4 +14,5 @@ RUN yum install -y RPMS/x86_64/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 RUN systemctl enable nginx mosquitto shibd shibfcgi
+RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
 CMD ["/sbin/init"]
