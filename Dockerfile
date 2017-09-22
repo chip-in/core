@@ -17,6 +17,6 @@ RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.0.1/hmr-rpm.ta
 RUN yum install -y RPMS/x86_64/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
-RUN systemctl enable nginx mosquitto shibd shibfcgi hmr
+RUN systemctl enable nginx mosquitto shibd shibfcgi hmr consul chip-in-config
 RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
 CMD ["/sbin/init"]
