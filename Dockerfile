@@ -13,7 +13,7 @@ RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-
 RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/download/2.6.0-2.2-1/shibboleth-fcgi-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.12.1-1-1/nginx-shib-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.0.0-1.4/configure-rpm.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.0.6/hmr-rpm.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.0.7/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/x86_64/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
