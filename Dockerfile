@@ -18,8 +18,12 @@ RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.0.7/hmr-rpm.ta
 RUN yum install -y RPMS/x86_64/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
-RUN systemctl enable nginx mosquitto shibd shibfcgi hmr
+RUN systemctl enable nginx mosquitto shibd shibfcgi hmr \
+  jwtIssuer-config jwtVerifier-config renewCerts.timer shibboleth-config load-certificates
 RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
+RUN touch /etc/sysconfig/network
 ENV container docker
 STOPSIGNAL 37
+EXPOSE 80
+EXPOSE 443
 CMD ["/sbin/init"]
