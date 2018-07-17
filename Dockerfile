@@ -22,6 +22,7 @@ RUN systemctl enable nginx mosquitto shibd shibfcgi hmr \
   jwtIssuer-config jwtVerifier-config logserver-config renewCerts.timer shibboleth-config load-certificates
 RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
 RUN touch /etc/sysconfig/network
+RUN systemctl disable getty.target
 ENV container docker
 STOPSIGNAL 37
 EXPOSE 80
