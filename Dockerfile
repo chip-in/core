@@ -12,7 +12,7 @@ RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-
   && ln -s /usr/local/node-${NODEJS_VERSION}-linux-x64 /usr/local/nodejs
 RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/download/3.0.1-3.1-1/shibboleth-fcgi-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.12.1-1-1/nginx-shib-rpm.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.0.0-d9/configure-rpm.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.0.0-d10/configure-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.1/jwt-nginx-lua.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.0.7/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
