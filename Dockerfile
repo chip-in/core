@@ -19,7 +19,7 @@ RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 RUN systemctl enable nginx mosquitto shibd shibfcgi hmr \
-  jwtIssuer-config jwtVerifier-config logserver-config renewCerts.timer shibboleth-config load-certificates
+  jwtIssuer-config jwtVerifier-config logserver-config renewCerts.timer shibboleth-config load-certificates nginx-config
 RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
 RUN mkdir -p /usr/local/chip-in/mosquitto/ \
   && mkdir -p /var/log/mosquitto \
