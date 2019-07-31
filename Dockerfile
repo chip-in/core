@@ -23,7 +23,7 @@ RUN systemctl enable nginx mosquitto shibd shibfcgi hmr \
 RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
 RUN mkdir -p /usr/local/chip-in/mosquitto/ \
   && mkdir -p /var/log/mosquitto \
-  && wget -qO - https://github.com/chip-in/mqtt-auth-plugin/releases/download/0.1.2-d2/chipin_auth_plug.so > /usr/local/chip-in/mosquitto/chipin_auth_plug.so \
+  && wget -qO - https://github.com/chip-in/mqtt-auth-plugin/releases/download/0.1.4/chipin_auth_plug.so > /usr/local/chip-in/mosquitto/chipin_auth_plug.so \
   && echo -e '/var/log/mosquitto/*log {\ndaily\nmissingok\nrotate 52\ncompress\ndelaycompress\ncopytruncate\n}' > /etc/logrotate.d/mosquitto
 RUN touch /etc/sysconfig/network
 RUN systemctl disable getty.target
