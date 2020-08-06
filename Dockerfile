@@ -13,7 +13,7 @@ RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-
 RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/download/3.0.1-3.2/shibboleth-fcgi-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.15.3-3/nginx-shib-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.3/configure-rpm.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.3/jwt-nginx-lua.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.7/jwt-nginx-lua.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.2/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
