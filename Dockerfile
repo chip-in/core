@@ -6,7 +6,11 @@ ENV HOME /root
 WORKDIR ${HOME}
 RUN echo "export TERM=xterm" >> .bash_profile
 RUN yum install -y epel-release httpd
-RUN yum install -y mosquitto certbot
+# RUN yum install -y mosquitto certbot
+# mosquitto 1.6.10-1.el7 degrade for websocket
+# https://github.com/eclipse/mosquitto/issues/1740
+# so download from fedora archive
+RUN yum install -y https://archive.fedoraproject.org/pub/archive/epel/7.2020-04-20/x86_64/Packages/m/mosquitto-1.6.8-1.el7.x86_64.rpm certbot
 ENV NODEJS_VERSION=v8.5.0
 RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz | tar xf - -C /usr/local -J \
   && ln -s /usr/local/node-${NODEJS_VERSION}-linux-x64 /usr/local/nodejs
