@@ -18,7 +18,7 @@ RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/down
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.15.3-3/nginx-shib-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.6/configure-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.8/jwt-nginx-lua.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.2/hmr-rpm.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.3.4/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
@@ -29,6 +29,7 @@ RUN mkdir -p /usr/local/chip-in/mosquitto/ \
   && mkdir -p /var/log/mosquitto \
   && wget -qO - https://github.com/chip-in/mqtt-auth-plugin/releases/download/0.1.4/chipin_auth_plug.so > /usr/local/chip-in/mosquitto/chipin_auth_plug.so \
   && echo -e '/var/log/mosquitto/*log {\ndaily\nmissingok\nrotate 52\ncompress\ndelaycompress\ncopytruncate\n}' > /etc/logrotate.d/mosquitto
+RUN echo 'tr "\000" "\n" < /proc/1/environ > /etc/sysconfig/hmr' >> /usr/local/chip-in/hmr/env.sh
 RUN touch /etc/sysconfig/network
 RUN systemctl disable getty.target
 ENV container docker
