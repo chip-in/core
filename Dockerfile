@@ -11,14 +11,14 @@ RUN yum install -y epel-release httpd
 # https://github.com/eclipse/mosquitto/issues/1740
 # so download from fedora archive
 RUN yum install -y https://archive.fedoraproject.org/pub/archive/epel/7.2020-04-20/x86_64/Packages/m/mosquitto-1.6.8-1.el7.x86_64.rpm certbot
-ENV NODEJS_VERSION=v8.5.0
+ENV NODEJS_VERSION=v16.14.0
 RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz | tar xf - -C /usr/local -J \
   && ln -s /usr/local/node-${NODEJS_VERSION}-linux-x64 /usr/local/nodejs && ln -s /usr/local/nodejs/bin/node /usr/bin/node && ln -s /usr/local/nodejs/bin/npm /usr/bin/npm
 RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/download/3.0.1-3.2/shibboleth-fcgi-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.15.3-3/nginx-shib-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.7.8/configure-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.8/jwt-nginx-lua.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.4.5/hmr-rpm.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.5.2/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
