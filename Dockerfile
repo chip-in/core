@@ -18,7 +18,7 @@ RUN wget -qO - https://github.com/procube-open/shibboleth-fcgi-rpm/releases/down
 RUN wget -qO - https://github.com/procube-open/nginx-shib-rpm/releases/download/1.15.3-3/nginx-shib-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/chip-in/configure/releases/download/1.7.8/configure-rpm.tar.gz | tar -xzf -
 RUN wget -qO - https://github.com/procube-open/jwt-nginx-lua/releases/download/1.0.8/jwt-nginx-lua.tar.gz | tar -xzf -
-RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.5.4/hmr-rpm.tar.gz | tar -xzf -
+RUN wget -qO - https://github.com/chip-in/hmr/releases/download/0.5.13/hmr-rpm.tar.gz | tar -xzf -
 RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
