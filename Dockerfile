@@ -6,7 +6,7 @@ WORKDIR ${HOME}
 RUN echo "export TERM=xterm" >> .bash_profile
 RUN yum install -y epel-release httpd yum-utils
 RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-RUN yum install -y mosquitto-1.6.10-1.el7.x86_64.rpm certbot
+RUN yum install -y mosquitto-1.6.10-1.el7.x86_64 certbot
 ENV NODEJS_VERSION=v16.19.1
 RUN wget -qO - https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz | tar xf - -C /usr/local -J \
   && ln -s /usr/local/node-${NODEJS_VERSION}-linux-x64 /usr/local/nodejs && ln -s /usr/local/nodejs/bin/node /usr/bin/node && ln -s /usr/local/nodejs/bin/npm /usr/bin/npm
@@ -19,11 +19,10 @@ RUN yum install -y RPMS/{noarch,x86_64}/*.rpm \
   && mkdir /etc/systemd/system/nginx.service.d \
   && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 RUN systemctl enable nginx mosquitto shibd shibfcgi hmr \
-  jwtIssuer-config jwtVerifier-config logserver-config renewCerts.timer shibboleth-config load-certificates nginx-config
-RUN echo -e "port 1833\nprotocol websockets" >> /etc/mosquitto/mosquitto.conf
+ jwtIssuer-config jwtVerifier-config logserver-config renewCerts.timer shibboleth-config load-certificates nginx-config
 RUN mkdir -p /usr/local/chip-in/mosquitto/ \
   && mkdir -p /var/log/mosquitto \
-  && wget -qO - https://github.com/chip-in/mqtt-auth-plugin/releases/download/0.1.4/chipin_auth_plug.so > /usr/local/chip-in/mosquitto/chipin_auth_plug.so \
+  && wget -qO - https://github.com/chip-in/mqtt-auth-plugin/releases/download/v0.1.10/chipin_auth_plug.so > /usr/local/chip-in/mosquitto/chipin_auth_plug.so \
   && echo -e '/var/log/mosquitto/*log {\ndaily\nmissingok\nrotate 52\ncompress\ndelaycompress\ncopytruncate\n}' > /etc/logrotate.d/mosquitto
 RUN echo 'tr "\000" "\n" < /proc/1/environ > /etc/sysconfig/hmr' >> /usr/local/chip-in/hmr/env.sh
 RUN touch /etc/sysconfig/network
